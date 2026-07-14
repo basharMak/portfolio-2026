@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bashar Maklad | Signage Fabricator & Installer Portfolio</title>
+    <meta name="description" content="Professional portfolio of Bashar Maklad, Signage Fabricator & Installer with 20+ years of experience. Specializing in LED, Neon, Acrylic, ACP Cladding, and CNC machining.">
+    <meta name="keywords" content="Signage Fabricator, Signwriter, Sign Installer, LED Neon Signs, 3D Raised Letters, ACP Cladding, ANZSCO 399611">
+    
+    <!-- Unique IDs for interactive elements & SEO structure -->
+    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+    
+    <!-- FontAwesome CDN for premium vector icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Background glowing decorative spheres wrapper to prevent overflow -->
+    <div class="bg-glow-wrapper">
+        <div class="bg-glow-1"></div>
+        <div class="bg-glow-2"></div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header id="mainHeader">
+        <div class="nav-container">
+            <a href="#" class="logo" id="logoLink">
+                <div class="logo-icon">BM</div>
+                <div class="logo-text">
+                    <h1 id="brandName">Bashar Maklad</h1>
+                    <p id="brandSubtitle">Signage Specialist</p>
+                </div>
+            </a>
+            
+            <nav id="navbar">
+                <ul class="nav-links">
+                    <li class="dropdown">
+                        <a href="#portfolio" id="navLinkPortfolio" class="active">Projects <i class="fa-solid fa-chevron-down dropdown-arrow"></i></a>
+                        <ul class="dropdown-menu" id="projectsDropdownMenu">
+                            <!-- Dynamic projects list will be populated here -->
+                        </ul>
+                    </li>
+                    <li><a href="#about" id="navLinkAbout">About Me</a></li>
+                    <li><a href="#contact" id="navLinkContact">Contact</a></li>
+                </ul>
+                
+                <div class="nav-controls">
+                    <!-- Language switch button -->
+                    <button class="control-btn lang-btn" id="langSwitchBtn" onclick="toggleLanguage()" aria-label="Switch Language">
+                        AR
+                    </button>
+                    <!-- Theme toggle button -->
+                    <button class="control-btn" id="themeToggleBtn" onclick="toggleTheme()" aria-label="Toggle Theme">
+                        <i class="fa-solid fa-sun" id="themeIcon"></i>
+                    </button>
+                    <!-- Mobile Hamburger Menu Button -->
+                    <button class="menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()" aria-label="Toggle Menu">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Showcase Section -->
+    <section class="hero" id="home">
+        <div class="hero-grid">
+            <div class="hero-content">
+                <div class="badge" id="heroBadge">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>20+ Years Professional Experience</span>
+                </div>
+                <h2 id="heroTitle">Precision <span>Signage</span> Fabrication & Flawless Installation</h2>
+                <p class="hero-desc" id="heroDesc">
+                    Delivering premium build-to-spec signage solutions, combining craftsmanship with CNC accuracy, structural safety, and high-impact visual design. Specializing in LED illumination, ACP Cladding, 3D letters, and shopfitting.
+                </p>
+                <div class="hero-cta">
+                    <a href="#portfolio" class="btn btn-primary" id="heroCtaPrimary">
+                        <i class="fa-solid fa-images"></i>
+                        <span>Explore Gallery</span>
+                    </a>
+                    <a href="#contact" class="btn btn-secondary" id="heroCtaSecondary">
+                        <span>Get in Touch</span>
+                    </a>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <h3 id="statExp">20+</h3>
+                        <p id="statExpLabel">Years Experience</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 id="statProj">53+</h3>
+                        <p id="statProjLabel">Active Projects</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 id="statQuality">100%</h3>
+                        <p id="statQualityLabel">Highest Quality Standards</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <!-- Glowing showcase box representing high-end fabrication -->
+                <div class="showcase-card" id="heroShowcaseCard">
+                    <div class="showcase-image-wrapper">
+                        <img src="black-motors-car-exhibition/images/IMG-20221224-WA0039.jpg" id="showcaseImg" alt="Signage Workshop Highlight">
+                        <div class="showcase-badge" id="showcaseBadge">
+                            <i class="fa-solid fa-bolt"></i>
+                            <span id="showcaseBadgeText">Featured Project</span>
+                        </div>
+                    </div>
+                    <div class="showcase-info">
+                        <h3 id="showcaseTitle">Black Motors Exhibition</h3>
+                        <p id="showcaseDesc">Illuminated Hexagonal ACP Panel Cladding</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Gallery Section -->
+    <section class="portfolio" id="portfolio">
+        <div class="section-header">
+            <div class="badge">
+                <i class="fa-solid fa-folder-open"></i>
+                <span id="portfolioSectionBadge">Work Gallery</span>
+            </div>
+            <h2 id="portfolioTitle">Industrial Portfolio</h2>
+            <p id="portfolioSubtitle">Explore 53+ categorized projects demonstrating workshop fabrication, assembly, and on-site structural installations.</p>
+        </div>
+
+        <!-- Category Filtering Bar -->
+        <div class="filter-container" id="filterBar">
+            <button class="filter-btn active" onclick="filterCategory('all', this)" id="filterBtnAll">All Projects</button>
+            <button class="filter-btn" onclick="filterCategory('3d-raised', this)" id="filterBtn3d">3D Letters</button>
+            <button class="filter-btn" onclick="filterCategory('led-neon', this)" id="filterBtnLed">LED & Neon</button>
+            <button class="filter-btn" onclick="filterCategory('exhibitions', this)" id="filterBtnExho">Exhibitions & Cladding</button>
+            <button class="filter-btn" onclick="filterCategory('wrapping', this)" id="filterBtnWrap">Car Wrapping</button>
+            <button class="filter-btn" onclick="filterCategory('others', this)" id="filterBtnOthers">Others</button>
+        </div>
+
+        <!-- Bento Grid Portfolio -->
+        <div class="portfolio-grid" id="projectsGrid">
+            <!-- Dynamic elements loaded via app.js -->
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section class="about" id="about">
+        <div class="about-grid">
+            <div class="about-image">
+                <img src="profile.png" id="aboutProfileImg" alt="Bashar Maklad">
+                <div class="about-image-overlay">
+                    <h3 id="aboutOverlayTitle">Bashar Maklad</h3>
+                    <p id="aboutOverlaySubtitle">Senior Fabricator & Signwriter</p>
+                </div>
+            </div>
+            
+            <div class="about-text">
+                <div class="badge">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <span id="aboutBadge">Career Background</span>
+                </div>
+                <h2 id="aboutTitle">Craftsmanship Redefined</h2>
+                <h3 id="aboutSubtitle">Experienced Artisan matching International Industry Standards</h3>
+                <p id="aboutParagraph1">
+                    With over two decades of hand-on expertise, my career spans the entire lifecycle of signage design, engineering, workshop fabrication, and final on-site structural installation. I specialize in turning high-fidelity architectural drawings into durable physical structures.
+                </p>
+                <p id="aboutParagraph2">
+                    My skills fully align with the ANZSCO 399611 (Signwriter) profile, with deep experience in acrylic thermoforming, laser cutting, ACP cladding, metal welding, electrical LED layouts, and compliance with strict occupational health and safety guidelines.
+                </p>
+                
+                <!-- Workshop capabilities grid -->
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <div class="skill-icon"><i class="fa-solid fa-cubes"></i></div>
+                        <div class="skill-info">
+                            <h4 id="skillFab">Fabrication Mastery</h4>
+                            <p id="skillFabDesc">Acrylic, composite panels, steel framing, thermoforming.</p>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-icon"><i class="fa-solid fa-lightbulb"></i></div>
+                        <div class="skill-info">
+                            <h4 id="skillElec">LED & Neon Layouts</h4>
+                            <p id="skillElecDesc">Electrical wiring, load balance, luminous efficiency.</p>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                        <div class="skill-info">
+                            <h4 id="skillInst">On-Site Installation</h4>
+                            <p id="skillInstDesc">Heavy scaffolding, concrete anchoring, wind-load calculation.</p>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-icon"><i class="fa-solid fa-helmet-safety"></i></div>
+                        <div class="skill-info">
+                            <h4 id="skillSafety">OH&S Compliance</h4>
+                            <p id="skillSafetyDesc">Strict workshop safety, PPE guidelines, hazard reduction.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hero-cta">
+                    <a href="cv-bashar-en-new.pdf" target="_blank" class="btn btn-primary" id="downloadCvEnBtn">
+                        <i class="fa-solid fa-file-pdf"></i>
+                        <span>Download English CV</span>
+                    </a>
+                    <a href="cv-bashar-ar-new.pdf" target="_blank" class="btn btn-secondary" id="downloadCvArBtn">
+                        <span>تحميل السيرة الذاتية (عربي)</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Enquiry Section -->
+    <section class="contact" id="contact">
+        <div class="section-header">
+            <div class="badge">
+                <i class="fa-solid fa-envelope"></i>
+                <span id="contactSectionBadge">Let's Connect</span>
+            </div>
+            <h2 id="contactTitle">Get in Touch</h2>
+            <p id="contactSubtitle">Interested in recruitment or collaboration? Drop a message or contact me directly via phone or WhatsApp.</p>
+        </div>
+        
+        <div class="contact-grid">
+            <div class="contact-info">
+                <div class="contact-card">
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+                        <div class="contact-details">
+                            <h4 id="contactEmailLabel">Email Address</h4>
+                            <a href="mailto:b.artdesign.m@gmail.com" id="contactEmail">b.artdesign.m@gmail.com</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+                        <div class="contact-details">
+                            <h4 id="contactPhoneLabel">Phone Number</h4>
+                            <a href="tel:0096171033625" id="contactPhone" style="direction: ltr; unicode-bidi: embed; display: inline-block;">0096171033625</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fa-brands fa-whatsapp"></i></div>
+                        <div class="contact-details">
+                            <h4 id="contactWhatsappLabel">WhatsApp</h4>
+                            <a href="https://wa.me/96171033625" target="_blank" id="contactWhatsapp">Send WhatsApp Message</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-card">
+                    <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 5px;" id="socialTitle">Professional Networks</h3>
+                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;" id="socialDesc">Connect on social networks and professional channels.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="#" class="social-btn" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                        <a href="#" class="social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <form class="contact-form" id="contactForm" onsubmit="event.preventDefault(); alert('Message sent successfully!');">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="formName" id="lblFormName">Full Name</label>
+                        <input type="text" id="formName" class="form-control" placeholder="Enter your name..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="formEmail" id="lblFormEmail">Email Address</label>
+                        <input type="email" id="formEmail" class="form-control" placeholder="Enter your email..." required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="formSubject" id="lblFormSubject">Subject</label>
+                    <input type="text" id="formSubject" class="form-control" placeholder="Enter message subject..." required>
+                </div>
+                <div class="form-group">
+                    <label for="formMessage" id="lblFormMessage">Your Message</label>
+                    <textarea id="formMessage" class="form-control" placeholder="Type your message here..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" id="btnSubmitForm" style="align-self: flex-start;">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>Send Message</span>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">Bashar <span>Maklad</span></div>
+            <ul class="footer-links">
+                <li><a href="#portfolio" id="footLinkPortfolio">Projects</a></li>
+                <li><a href="#about" id="footLinkAbout">About Me</a></li>
+                <li><a href="#contact" id="footLinkContact">Contact</a></li>
+            </ul>
+            <p class="footer-copy" id="footerCopy">&copy; 2026 Bashar Maklad. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Full-screen Project Details Modal -->
+    <div class="project-modal" id="projectModal" onclick="closeProjectModal(event)">
+        <button class="modal-nav-btn prev" onclick="event.stopPropagation(); navigateProject(-1)" id="modalPrevBtn" aria-label="Previous Project">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button class="modal-nav-btn next" onclick="event.stopPropagation(); navigateProject(1)" id="modalNextBtn" aria-label="Next Project">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+        <div class="modal-container" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <h2 id="modalProjectName">Project Title</h2>
+                    <p id="modalProjectSubtitle">Subheading</p>
+                </div>
+                <button class="modal-close-btn" onclick="hideProjectModal()" aria-label="Close Modal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="modal-grid">
+                    <!-- Project Media Grid (Left) -->
+                    <div class="modal-media-section">
+                        <div class="modal-media-grid" id="modalMediaGrid">
+                            <!-- Dynamic images/videos loaded in app.js -->
+                        </div>
+                    </div>
+                    
+                    <!-- Project Metadata & Description (Right Sidebar) -->
+                    <div class="modal-info-sidebar">
+                        <div class="modal-info-block">
+                            <h3 id="modalDescTitle">About Project</h3>
+                            <p id="modalProjectDesc" style="white-space: pre-wrap;">Project description goes here...</p>
+                        </div>
+                        
+                        <div class="modal-info-block">
+                            <h3 id="modalMaterialsTitle">Materials Used</h3>
+                            <div class="tag-list" id="modalMaterialsList">
+                                <!-- Dynamic tags -->
+                            </div>
+                        </div>
+                        
+                        <div class="modal-info-block">
+                            <h3 id="modalToolsTitle">Tools & Machinery</h3>
+                            <div class="tag-list" id="modalToolsList">
+                                <!-- Dynamic tags -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Media Fullscreen Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <button class="lightbox-nav-btn prev" onclick="event.stopPropagation(); navigateLightbox(-1)" aria-label="Previous Image">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <div id="lightboxContainer" onclick="event.stopPropagation()">
+            <!-- Full size image/video loaded dynamically -->
+        </div>
+        <button class="lightbox-nav-btn next" onclick="event.stopPropagation(); navigateLightbox(1)" aria-label="Next Image">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top-btn" id="scrollTopBtn" onclick="scrollToTop()" aria-label="Scroll to Top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- Load the web-organized database file first -->
+    <script src="image_data_web.js"></script>
+    
+    <!-- Load the application controller logic -->
+    <script src="app.js"></script>
+</body>
+</html>

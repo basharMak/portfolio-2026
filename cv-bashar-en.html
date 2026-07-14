@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bashar Lutfi Maklad - Resume</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+        @page {
+            size: A4;
+            margin: 12mm 15mm;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Outfit', sans-serif;
+            color: #1e293b;
+            background-color: #ffffff;
+            line-height: 1.5;
+            font-size: 11.5pt;
+        }
+        .container {
+            width: 100%;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #ff5500;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .header-text h1 {
+            font-size: 26pt;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
+        .header-text p {
+            font-size: 12pt;
+            color: #ff5500;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+        .photo-container img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ff5500;
+        }
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            font-size: 9.5pt;
+            color: #64748b;
+            margin-bottom: 20px;
+        }
+        .contact-info span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .contact-info a {
+            color: #64748b;
+            text-decoration: none;
+        }
+        .section {
+            margin-bottom: 18px;
+        }
+        .section-title {
+            font-size: 13pt;
+            font-weight: 700;
+            color: #0f172a;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 4px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .summary-text {
+            font-size: 10pt;
+            text-align: justify;
+            color: #334155;
+        }
+        .job {
+            margin-bottom: 12px;
+        }
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            font-size: 11pt;
+            color: #0f172a;
+        }
+        .job-title {
+            color: #ff5500;
+        }
+        .job-company {
+            font-style: italic;
+            font-size: 10pt;
+            color: #475569;
+            margin-bottom: 4px;
+        }
+        .job-bullets {
+            list-style-type: square;
+            margin-left: 20px;
+            font-size: 9.5pt;
+            color: #334155;
+        }
+        .job-bullets li {
+            margin-bottom: 3px;
+        }
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .skill-tag {
+            background-color: #f1f5f9;
+            color: #334155;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 9pt;
+            font-weight: 500;
+            border: 1px solid #e2e8f0;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .meta-list {
+            list-style: none;
+            font-size: 9.5pt;
+            color: #334155;
+        }
+        .meta-list li {
+            margin-bottom: 4px;
+        }
+        .meta-list strong {
+            color: #0f172a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-text">
+                <h1>Bashar Lutfi Maklad</h1>
+                <p>Signage Fabricator & Installer / Senior Designer</p>
+            </div>
+            <div class="photo-container">
+                <img src="profile.png" alt="Bashar Maklad">
+            </div>
+        </div>
+
+        <div class="contact-info">
+            <span><strong>Nationality:</strong> Syrian</span>
+            <span>•</span>
+            <span><strong>Residency:</strong> Lebanon (with family)</span>
+            <span>•</span>
+            <span><strong>Phone:</strong> +961 71 033 625</span>
+            <span>•</span>
+            <span><strong>Email:</strong> <a href="mailto:basharartgraphic@gmail.com">basharartgraphic@gmail.com</a></span>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Professional Summary</div>
+            <div class="summary-text">
+                Highly experienced Signage Designer and Fabricator with over 20 years of hands-on experience in the advertising and signage industry. Skilled in creative design, laser cutting, metal and acrylic fabrication, and full project execution — from concept and design to final installation. Strong ability to lead teams, develop brand identities, and deliver innovative visual solutions for businesses and events. Currently based in Lebanon with my family and seeking an employer-sponsored opportunity in Australia under the TSS 482 Visa program.
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Experience</div>
+            
+            <div class="job">
+                <div class="job-header">
+                    <span class="job-title">Senior Designer</span>
+                    <span>2013 – Present</span>
+                </div>
+                <div class="job-company">Fine Ads Est. – Aley, Lebanon</div>
+                <ul class="job-bullets">
+                    <li>Managing the design department and developing visual identities for companies and events.</li>
+                    <li>Designing advertising interfaces, exhibition stands, and product display units.</li>
+                    <li>Creating 3D concepts and determining the best fabrication methods for durable, modern results.</li>
+                    <li>Supervising production from concept to delivery, ensuring quality and client satisfaction.</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <div class="job-header">
+                    <span class="job-title">Creative Director</span>
+                    <span>2009 – 2013</span>
+                </div>
+                <div class="job-company">Marksys Co. – Khobar, Saudi Arabia</div>
+                <ul class="job-bullets">
+                    <li>Directed the design department and developed branding for over 250 companies in various sectors.</li>
+                    <li>Created unified corporate identities and uniform designs for companies and factories.</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <div class="job-header">
+                    <span class="job-title">Design Supervisor</span>
+                    <span>2008 – 2009</span>
+                </div>
+                <div class="job-company">Technical Seminar Institute – Dammam, Saudi Arabia</div>
+                <ul class="job-bullets">
+                    <li>Supervised the Design and Public Relations Department.</li>
+                    <li>Managed marketing and media projects, developed visual identities, and advised on advertising strategies.</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <div class="job-header">
+                    <span class="job-title">Graphic Designer & Sign Maker</span>
+                    <span>2006 – 2008</span>
+                </div>
+                <div class="job-company">Fine Ads Est. – Aley, Lebanon</div>
+                <ul class="job-bullets">
+                    <li>Designed and produced illuminated and 3D signage, acrylic and PVC displays, and exhibition stands.</li>
+                    <li>Worked on composite panels, wood, and stainless steel advertising structures.</li>
+                </ul>
+            </div>
+
+            <div class="job" style="margin-bottom: 0;">
+                <div class="job-header">
+                    <span class="job-title">Sign Maker</span>
+                    <span>2004 – 2006</span>
+                </div>
+                <div class="job-company">SATA Agency – Tripoli, Libya</div>
+                <ul class="job-bullets">
+                    <li>Designed and fabricated illuminated signs and 3D lettering.</li>
+                    <li>Produced advertising displays and stands from concept to installation.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Skills</div>
+            <div class="skills-container">
+                <span class="skill-tag">Laser Cutting</span>
+                <span class="skill-tag">Acrylic Fabrication</span>
+                <span class="skill-tag">CNC Routing</span>
+                <span class="skill-tag">LED Installation & Wiring</span>
+                <span class="skill-tag">Welding</span>
+                <span class="skill-tag">ACP Cladding</span>
+                <span class="skill-tag">Adobe Photoshop & Illustrator</span>
+                <span class="skill-tag">Autodesk Maya (3D Design)</span>
+                <span class="skill-tag">Signage Assembly</span>
+                <span class="skill-tag">Project Management</span>
+                <span class="skill-tag">Safety & OH&S Compliance</span>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <div class="section">
+                <div class="section-title">Education</div>
+                <ul class="meta-list">
+                    <li><strong>Secondary Education</strong> (Grade 9)</li>
+                    <li><strong>Professional Online Courses</strong> in Design, Laser Cutting, and Brand Identity</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Languages</div>
+                <ul class="meta-list">
+                    <li><strong>Arabic:</strong> Native Speaker</li>
+                    <li><strong>English:</strong> Good (Reading, Writing, Speaking)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

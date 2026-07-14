@@ -1,0 +1,10 @@
+# Backup files
+*_backup.js
+*.backup
+*.bak
+
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
