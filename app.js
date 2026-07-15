@@ -383,7 +383,7 @@ function renderProjects() {
             const path = firstFile.filepath;
             if (firstFile.is_video) {
                 isVideoBadge = true;
-                mediaHtml = `<video src="${path}" muted loop playsinline></video>
+                mediaHtml = `<video src="${path}" preload="none" muted loop playsinline></video>
                              <div class="modal-media-play-icon" style="width:36px; height:36px; font-size:14px;"><i class="fa-solid fa-play"></i></div>`;
             } else {
                 mediaHtml = `<img src="${path}" alt="${proj.name_en}" loading="lazy">`;
@@ -653,7 +653,7 @@ function updateModalContent(project) {
         
         let innerHtml = "";
         if (file.is_video) {
-            innerHtml = `<video src="${file.filepath}" muted></video>
+            innerHtml = `<video src="${file.filepath}" preload="metadata" muted></video>
                          <div class="modal-media-play-icon"><i class="fa-solid fa-play"></i></div>`;
         } else {
             innerHtml = `<img src="${file.filepath}" alt="${file.filename}" loading="lazy">`;
