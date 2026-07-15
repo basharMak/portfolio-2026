@@ -381,12 +381,13 @@ function renderProjects() {
         
         if (firstFile) {
             const path = firstFile.filepath;
+            const thumbPath = firstFile.thumbpath || path;
             if (firstFile.is_video) {
                 isVideoBadge = true;
                 mediaHtml = `<video src="${path}" preload="none" muted loop playsinline></video>
                              <div class="modal-media-play-icon" style="width:36px; height:36px; font-size:14px;"><i class="fa-solid fa-play"></i></div>`;
             } else {
-                mediaHtml = `<img src="${path}" alt="${proj.name_en}" loading="lazy">`;
+                mediaHtml = `<img src="${thumbPath}" alt="${proj.name_en}" loading="lazy">`;
             }
         }
         
@@ -656,7 +657,8 @@ function updateModalContent(project) {
             innerHtml = `<video src="${file.filepath}" preload="metadata" muted></video>
                          <div class="modal-media-play-icon"><i class="fa-solid fa-play"></i></div>`;
         } else {
-            innerHtml = `<img src="${file.filepath}" alt="${file.filename}" loading="lazy">`;
+            const thumbPath = file.thumbpath || file.filepath;
+            innerHtml = `<img src="${thumbPath}" alt="${file.filename}" loading="lazy">`;
         }
         
         mediaCard.innerHTML = innerHtml;
