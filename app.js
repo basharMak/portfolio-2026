@@ -563,6 +563,12 @@ function lockScroll() {
 function unlockScroll() {
     if (!isScrollLocked) return;
     
+    // Remove fixed positioning first so elements return to their natural layout
+    document.body.style.removeProperty("overflow");
+    document.body.style.removeProperty("position");
+    document.body.style.removeProperty("top");
+    document.body.style.removeProperty("width");
+    
     let targetScroll = scrollPosition;
     
     // Find the offset of the currently active project card to scroll directly to it
@@ -570,7 +576,8 @@ function unlockScroll() {
         const card = document.querySelector(`[data-slug="${lastViewedProjectSlug}"]`);
         if (card) {
             const cardRect = card.getBoundingClientRect();
-            const absoluteCardTop = scrollPosition + cardRect.top;
+            // Since window.scrollY is 0 right now, cardRect.top is exactly the absolute top offset of the card!
+            const absoluteCardTop = cardRect.top;
             
             // Center the card in the viewport
             targetScroll = absoluteCardTop - (window.innerHeight / 2) + (cardRect.height / 2);
@@ -581,11 +588,6 @@ function unlockScroll() {
         }
     }
     
-    document.body.style.removeProperty("overflow");
-    document.body.style.removeProperty("position");
-    document.body.style.removeProperty("top");
-    document.body.style.removeProperty("width");
-    
     window.scrollTo(0, targetScroll);
     isScrollLocked = false;
 }
@@ -594,13 +596,16 @@ function unlockScroll() {
 function showProjectModal(project) {
     currentProject = project;
     lastViewedProjectSlug = project.folder_name; // Track active project slug
+    
+    // Lock scroll immediately to capture the correct scroll position
+    lockScroll();
+    
     updateModalContent(project);
     
     const modal = document.getElementById("projectModal");
     modal.style.display = "flex";
     setTimeout(() => {
         modal.classList.add("show");
-        lockScroll();
     }, 10);
 
     // Bind modal navigation keys
