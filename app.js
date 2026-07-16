@@ -166,6 +166,7 @@ let visibleProjectsCount = 12; // State for infinite scroll pagination
 let loadMoreObserver = null;   // Intersection observer instance
 let lastViewedProjectSlug = null; // Stores last project active in modal
 let isModalClosing = false; // Flag to prevent scroll jumping on modal close
+let lastModalCloseTime = 0; // Timestamp of when the modal was last closed
 
 // Initialize Application
 document.addEventListener("DOMContentLoaded", () => {
@@ -231,8 +232,9 @@ document.addEventListener("DOMContentLoaded", () => {
         
         handleRoute();
         
-        // If modal was already closed, and we pop to root (not during modal close animation), scroll to top
-        if (!modalIsOpen && !isModalClosing && !window.location.hash) {
+        // If modal was already closed, and we pop to root (not during or just after modal close), scroll to top
+        const wasModalJustClosed = (Date.now() - lastModalCloseTime) < 1000;
+        if (!modalIsOpen && !isModalClosing && !wasModalJustClosed && !window.location.hash) {
             scrollToTop();
         }
     });
@@ -612,6 +614,7 @@ function hideProjectModal() {
     
     currentProject = null;
     isModalClosing = true; // Set closing flag
+    lastModalCloseTime = Date.now(); // Record close timestamp
     modal.classList.remove("show");
     setTimeout(() => {
         modal.style.display = "none";
