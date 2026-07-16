@@ -1,3 +1,8 @@
+// Disable automatic browser scroll restoration on history navigation
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+
 // Premium Signage Portfolio Application Controller
 
 // Translation Dictionary
@@ -792,10 +797,37 @@ function openLightbox(index) {
     container.className = ""; // Reset transition classes
     container.innerHTML = "";
     
+    // Show spinner while loading
+    const spinner = document.getElementById("lightboxSpinner");
+    if (spinner) spinner.style.display = "block";
+    
     if (media.is_video) {
-        container.innerHTML = `<video src="${media.filepath}" controls autoplay class="lightbox-content" style="max-width:100%; max-height:80vh;"></video>`;
+        const video = document.createElement("video");
+        video.src = media.filepath;
+        video.controls = true;
+        video.autoplay = true;
+        video.playsInline = true;
+        video.className = "lightbox-content";
+        video.style.maxWidth = "100%";
+        video.style.maxHeight = "80vh";
+        
+        video.onloadeddata = () => {
+            if (spinner) spinner.style.display = "none";
+        };
+        video.oncanplay = () => {
+            if (spinner) spinner.style.display = "none";
+        };
+        
+        container.appendChild(video);
     } else {
-        container.innerHTML = `<img src="${media.filepath}" class="lightbox-content" alt="Lightbox Visual">`;
+        const img = new Image();
+        img.className = "lightbox-content";
+        img.alt = "Lightbox Visual";
+        img.onload = () => {
+            if (spinner) spinner.style.display = "none";
+            container.appendChild(img);
+        };
+        img.src = media.filepath;
     }
     
     const lightbox = document.getElementById("lightbox");
@@ -879,10 +911,38 @@ function navigateLightbox(direction) {
         if (!media) return;
         
         container.innerHTML = "";
+        
+        // Show spinner while loading next/prev item
+        const spinner = document.getElementById("lightboxSpinner");
+        if (spinner) spinner.style.display = "block";
+        
         if (media.is_video) {
-            container.innerHTML = `<video src="${media.filepath}" controls autoplay class="lightbox-content" style="max-width:100%; max-height:80vh;"></video>`;
+            const video = document.createElement("video");
+            video.src = media.filepath;
+            video.controls = true;
+            video.autoplay = true;
+            video.playsInline = true;
+            video.className = "lightbox-content";
+            video.style.maxWidth = "100%";
+            video.style.maxHeight = "80vh";
+            
+            video.onloadeddata = () => {
+                if (spinner) spinner.style.display = "none";
+            };
+            video.oncanplay = () => {
+                if (spinner) spinner.style.display = "none";
+            };
+            
+            container.appendChild(video);
         } else {
-            container.innerHTML = `<img src="${media.filepath}" class="lightbox-content" alt="Lightbox Visual">`;
+            const img = new Image();
+            img.className = "lightbox-content";
+            img.alt = "Lightbox Visual";
+            img.onload = () => {
+                if (spinner) spinner.style.display = "none";
+                container.appendChild(img);
+            };
+            img.src = media.filepath;
         }
         
         // Instantly teleport container to starting position on opposite side

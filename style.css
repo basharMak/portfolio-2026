@@ -887,6 +887,16 @@ body.rtl .project-card-badges {
     padding: 30px;
 }
 
+.lightbox-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    z-index: 3050;
+    pointer-events: none;
+}
+
 #lightboxContainer {
     width: 100%;
     height: 100%;
@@ -1719,17 +1729,21 @@ body.rtl .scroll-to-top-btn {
         width: 100%;
         box-shadow: none;
         border: none;
-        background-color: transparent;
+        border-left: 2px solid var(--border);
+        background-color: rgba(var(--accent-rgb), 0.02);
         max-height: 250px;
         opacity: 1;
         visibility: visible;
         display: none;
         padding-left: 15px;
+        margin: 5px 0 10px 0;
     }
     
     body.rtl .dropdown-menu {
         padding-left: 0;
         padding-right: 15px;
+        border-left: none;
+        border-right: 2px solid var(--border);
     }
     
     .dropdown:hover .dropdown-menu {
