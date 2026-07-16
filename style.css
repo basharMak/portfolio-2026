@@ -1427,7 +1427,7 @@ body.rtl .nav-links .dropdown-menu .dropdown-item:hover {
     transform: translateY(-50%);
     background-color: rgba(30, 41, 59, 0.7);
     border: 1px solid var(--border);
-    color: var(--text-main);
+    color: #ffffff;
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -1689,9 +1689,9 @@ body.rtl .scroll-to-top-btn {
         top: 100%;
         left: 0;
         width: 100%;
-        background-color: var(--bg-secondary);
-        backdrop-filter: var(--glass-blur);
-        -webkit-backdrop-filter: var(--glass-blur);
+        background-color: var(--bg-tertiary);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
         border-bottom: 1px solid var(--border);
         padding: 20px;
         gap: 15px;

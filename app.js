@@ -160,6 +160,7 @@ let currentLightboxMedia = [];
 let visibleProjectsCount = 12; // State for infinite scroll pagination
 let loadMoreObserver = null;   // Intersection observer instance
 let lastViewedProjectSlug = null; // Stores last project active in modal
+let isModalClosing = false; // Flag to prevent scroll jumping on modal close
 
 // Initialize Application
 document.addEventListener("DOMContentLoaded", () => {
@@ -221,12 +222,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         
         const modal = document.getElementById("projectModal");
-        const modalIsOpen = modal && modal.classList.contains("show");
+        const modalIsOpen = modal && (modal.classList.contains("show") || modal.style.display === "flex");
         
         handleRoute();
         
-        // If modal was already closed, and we pop to root, scroll to top
-        if (!modalIsOpen && !window.location.hash) {
+        // If modal was already closed, and we pop to root (not during modal close animation), scroll to top
+        if (!modalIsOpen && !isModalClosing && !window.location.hash) {
             scrollToTop();
         }
     });
@@ -605,10 +606,12 @@ function hideProjectModal() {
     if (!modal || !modal.classList.contains("show")) return;
     
     currentProject = null;
+    isModalClosing = true; // Set closing flag
     modal.classList.remove("show");
     setTimeout(() => {
         modal.style.display = "none";
         unlockScroll();
+        isModalClosing = false; // Reset closing flag
     }, 400);
 
     // Remove hash from URL by going back if we have project hash
