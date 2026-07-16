@@ -553,21 +553,20 @@ let isScrollLocked = false;
 function lockScroll() {
     if (isScrollLocked) return;
     scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    
+    // Disable scrolling by setting overflow hidden on both body and html
     document.body.style.overflow = "hidden";
-    document.body.style.position = "fixed";
-    document.body.style.top = `-${scrollPosition}px`;
-    document.body.style.width = "100%";
+    document.documentElement.style.overflow = "hidden";
+    
     isScrollLocked = true;
 }
 
 function unlockScroll() {
     if (!isScrollLocked) return;
     
-    // Remove fixed positioning first so elements return to their natural layout
+    // Enable scrolling again
     document.body.style.removeProperty("overflow");
-    document.body.style.removeProperty("position");
-    document.body.style.removeProperty("top");
-    document.body.style.removeProperty("width");
+    document.documentElement.style.removeProperty("overflow");
     
     let targetScroll = scrollPosition;
     
@@ -576,8 +575,9 @@ function unlockScroll() {
         const card = document.querySelector(`[data-slug="${lastViewedProjectSlug}"]`);
         if (card) {
             const cardRect = card.getBoundingClientRect();
-            // Since window.scrollY is 0 right now, cardRect.top is exactly the absolute top offset of the card!
-            const absoluteCardTop = cardRect.top;
+            // Since window.scrollY was preserved, absolute top is scrollY + cardRect.top
+            const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+            const absoluteCardTop = currentScroll + cardRect.top;
             
             // Center the card in the viewport
             targetScroll = absoluteCardTop - (window.innerHeight / 2) + (cardRect.height / 2);
