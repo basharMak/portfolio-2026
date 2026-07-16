@@ -157,6 +157,9 @@ let activeCategory = "all";
 let currentProject = null;
 let currentLightboxIndex = 0;
 let currentLightboxMedia = [];
+let visibleProjectsCount = 12; // State for infinite scroll pagination
+let loadMoreObserver = null;   // Intersection observer instance
+let lastViewedProjectSlug = null; // Stores last project active in modal
 
 // Initialize Application
 document.addEventListener("DOMContentLoaded", () => {
@@ -167,13 +170,24 @@ document.addEventListener("DOMContentLoaded", () => {
     // Set Language
     applyLanguage(currentLang);
     
-    // Header shadow on scroll
+    let galleryStatePushed = false;
+    
+    // Header shadow & Scroll progress states
     window.addEventListener("scroll", () => {
         const header = document.getElementById("mainHeader");
         if (window.scrollY > 50) {
             header.classList.add("scrolled");
         } else {
             header.classList.remove("scrolled");
+        }
+        
+        // Push gallery history state once user scrolls down to projects
+        if (window.scrollY > 400 && !galleryStatePushed && !window.location.hash) {
+            history.pushState({ galleryScrolled: true }, "", "#gallery");
+            galleryStatePushed = true;
+        } else if (window.scrollY < 100 && galleryStatePushed && window.location.hash === "#gallery") {
+            history.replaceState("", document.title, window.location.pathname + window.location.search);
+            galleryStatePushed = false;
         }
     });
     
@@ -195,8 +209,28 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
     
-    // Route handler for deep links
+    // Route handler for deep links & browser back/forward buttons
     window.addEventListener("hashchange", handleRoute);
+    
+    // Intercept back button for Lightbox & Modal
+    window.addEventListener("popstate", (event) => {
+        const lightbox = document.getElementById("lightbox");
+        if (lightbox && lightbox.style.display === "flex") {
+            closeLightbox(true);
+            return;
+        }
+        
+        const modal = document.getElementById("projectModal");
+        const modalIsOpen = modal && modal.classList.contains("show");
+        
+        handleRoute();
+        
+        // If modal was already closed, and we pop to root, scroll to top
+        if (!modalIsOpen && !window.location.hash) {
+            scrollToTop();
+        }
+    });
+    
     handleRoute(); // Execute on initial load
     
     // Bind swipe events for the project modal
@@ -331,6 +365,7 @@ function getProjectCategory(proj) {
 // Filter Category Click
 function filterCategory(category, element) {
     activeCategory = category;
+    visibleProjectsCount = 12; // Reset count for infinite scroll
     
     // Toggle active filter button style
     const buttons = document.querySelectorAll(".filter-btn");
@@ -357,8 +392,11 @@ function renderProjects() {
         return getProjectCategory(proj) === activeCategory;
     });
     
+    // Get current chunk to render
+    const projectsToRender = filteredProjects.slice(0, visibleProjectsCount);
+    
     // Render Bento Cards
-    filteredProjects.forEach((proj, index) => {
+    projectsToRender.forEach((proj, index) => {
         const card = document.createElement("div");
         
         // Define Bento Grid size spans for visual variety
@@ -387,7 +425,8 @@ function renderProjects() {
                 mediaHtml = `<video src="${path}" preload="none" muted loop playsinline></video>
                              <div class="modal-media-play-icon" style="width:36px; height:36px; font-size:14px;"><i class="fa-solid fa-play"></i></div>`;
             } else {
-                mediaHtml = `<img src="${thumbPath}" alt="${proj.name_en}" loading="lazy">`;
+                // Add explicit width/height markers or auto aspect for performance
+                mediaHtml = `<img src="${thumbPath}" alt="${proj.name_en}" loading="lazy" width="360" height="280">`;
             }
         }
         
@@ -438,6 +477,47 @@ function renderProjects() {
         
         grid.appendChild(card);
     });
+    
+    // Setup dynamic load more trigger
+    setupLoadMoreTrigger(filteredProjects.length);
+}
+
+// Setup Load More Trigger for Infinite Scroll
+function setupLoadMoreTrigger(totalFilteredCount) {
+    const existingTrigger = document.getElementById("loadMoreTrigger");
+    if (existingTrigger) {
+        if (loadMoreObserver) {
+            loadMoreObserver.unobserve(existingTrigger);
+        }
+        existingTrigger.remove();
+    }
+    
+    if (visibleProjectsCount >= totalFilteredCount) {
+        return;
+    }
+    
+    const grid = document.getElementById("projectsGrid");
+    if (!grid) return;
+    
+    const trigger = document.createElement("div");
+    trigger.id = "loadMoreTrigger";
+    trigger.className = "load-more-trigger";
+    trigger.innerHTML = `<div class="loading-spinner"></div>`;
+    
+    grid.parentNode.insertBefore(trigger, grid.nextSibling);
+    
+    if (!loadMoreObserver) {
+        loadMoreObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                visibleProjectsCount += 12;
+                renderProjects();
+            }
+        }, {
+            rootMargin: "250px"
+        });
+    }
+    
+    loadMoreObserver.observe(trigger);
 }
 
 // Router to handle URL changes (Deep Links)
@@ -474,17 +554,38 @@ function lockScroll() {
 
 function unlockScroll() {
     if (!isScrollLocked) return;
+    
+    let targetScroll = scrollPosition;
+    
+    // Find the offset of the currently active project card to scroll directly to it
+    if (lastViewedProjectSlug) {
+        const card = document.querySelector(`[data-slug="${lastViewedProjectSlug}"]`);
+        if (card) {
+            const cardRect = card.getBoundingClientRect();
+            const absoluteCardTop = scrollPosition + cardRect.top;
+            
+            // Center the card in the viewport
+            targetScroll = absoluteCardTop - (window.innerHeight / 2) + (cardRect.height / 2);
+            
+            // Clamp scroll value to document bounds
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            targetScroll = Math.max(0, Math.min(targetScroll, maxScroll));
+        }
+    }
+    
     document.body.style.removeProperty("overflow");
     document.body.style.removeProperty("position");
     document.body.style.removeProperty("top");
     document.body.style.removeProperty("width");
-    window.scrollTo(0, scrollPosition);
+    
+    window.scrollTo(0, targetScroll);
     isScrollLocked = false;
 }
 
 // Show Project Details Modal
 function showProjectModal(project) {
     currentProject = project;
+    lastViewedProjectSlug = project.folder_name; // Track active project slug
     updateModalContent(project);
     
     const modal = document.getElementById("projectModal");
@@ -500,19 +601,19 @@ function showProjectModal(project) {
 
 // Hide Project Details Modal
 function hideProjectModal() {
-    currentProject = null;
     const modal = document.getElementById("projectModal");
-    if (modal && modal.classList.contains("show")) {
-        modal.classList.remove("show");
-        setTimeout(() => {
-            modal.style.display = "none";
-            unlockScroll();
-        }, 400);
+    if (!modal || !modal.classList.contains("show")) return;
+    
+    currentProject = null;
+    modal.classList.remove("show");
+    setTimeout(() => {
+        modal.style.display = "none";
+        unlockScroll();
+    }, 400);
 
-        // Remove hash from URL without triggering browser scroll-to-top
-        if (window.location.hash) {
-            history.pushState("", document.title, window.location.pathname + window.location.search);
-        }
+    // Remove hash from URL by going back if we have project hash
+    if (window.location.hash.startsWith("#/project/")) {
+        history.back();
     }
 
     // Unbind modal navigation keys
@@ -536,7 +637,6 @@ function navigateProject(direction) {
     const newProj = rawProjectsData[newIndex];
     const container = document.querySelector(".modal-container");
     if (!container) {
-        // Fallback if container is not loaded
         window.location.hash = "#/project/" + newProj.folder_name;
         return;
     }
@@ -545,15 +645,20 @@ function navigateProject(direction) {
     const isRtl = document.body.classList.contains("rtl");
     const animDirection = isRtl ? -direction : direction;
     const outClass = animDirection > 0 ? "slide-out-left" : "slide-out-right";
-    const inClass = animDirection > 0 ? "slide-in-left" : "slide-in-right";
+    const isNext = animDirection > 0;
+    const inClass = isNext ? "slide-in-left" : "slide-in-right";
     
     // 1. Start slide-out animation
     container.classList.add("navigating", outClass);
     
     // 2. Once slide-out completes, swap content and trigger slide-in from opposite side
     setTimeout(() => {
-        // Update URL hash to update content
-        window.location.hash = "#/project/" + newProj.folder_name;
+        // Update URL hash using replaceState to avoid cluttering history
+        history.replaceState(null, document.title, window.location.pathname + window.location.search + "#/project/" + newProj.folder_name);
+        
+        currentProject = newProj;
+        lastViewedProjectSlug = newProj.folder_name; // Update scroll target project
+        updateModalContent(newProj);
         
         // Instantly teleport container to the starting position on the opposite side
         container.classList.remove(outClass);
@@ -594,7 +699,6 @@ function handleModalKeys(event) {
 // Close Modal when clicking outside
 function closeProjectModal(event) {
     hideProjectModal();
-    window.location.hash = ""; // Clear hash to restore routing
 }
 
 // Update Modal Contents dynamically
@@ -654,11 +758,11 @@ function updateModalContent(project) {
         
         let innerHtml = "";
         if (file.is_video) {
-            innerHtml = `<video src="${file.filepath}" preload="metadata" muted></video>
+            innerHtml = `<video src="${file.filepath}" preload="none" muted></video>
                          <div class="modal-media-play-icon"><i class="fa-solid fa-play"></i></div>`;
         } else {
             const thumbPath = file.thumbpath || file.filepath;
-            innerHtml = `<img src="${thumbPath}" alt="${file.filename}" loading="lazy">`;
+            innerHtml = `<img src="${thumbPath}" alt="${file.filename}" loading="lazy" width="220" height="165">`;
         }
         
         mediaCard.innerHTML = innerHtml;
@@ -677,6 +781,9 @@ function openLightbox(index) {
     currentLightboxIndex = index;
     const media = currentLightboxMedia[index];
     if (!media) return;
+    
+    // Push state so back button on mobile closes lightbox first
+    history.pushState({ lightboxOpen: true }, "");
     
     const container = document.getElementById("lightboxContainer");
     container.className = ""; // Reset transition classes
@@ -708,14 +815,21 @@ function openLightbox(index) {
     document.addEventListener("keydown", handleLightboxKeys);
 }
 
-function closeLightbox() {
+function closeLightbox(isPopState = false) {
     const lightbox = document.getElementById("lightbox");
+    if (!lightbox || lightbox.style.display !== "flex") return;
+    
     lightbox.style.display = "none";
     
     const container = document.getElementById("lightboxContainer");
     container.innerHTML = ""; // Stop playing video if active
     
     document.removeEventListener("keydown", handleLightboxKeys);
+    
+    // If closed manually (not via browser back), pop history state
+    if (!isPopState) {
+        history.back();
+    }
 }
 
 // Keyboard shortcuts for Lightbox (Left / Right / Esc)

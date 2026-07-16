@@ -1,5 +1,4 @@
 /* Modern Premium Signage Portfolio Stylesheet */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Tajawal:wght@300;400;500;700;800;900&display=swap');
 
 :root {
     /* Transitions */
@@ -1900,4 +1899,42 @@ body.rtl .scroll-to-top-btn {
     .showcase-image-wrapper {
         height: 240px;
     }
+}
+
+/* --- Added for Performance & UX optimizations --- */
+
+/* Video Modal Card styling when preload is none */
+.modal-media-card {
+    background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary)) !important;
+}
+
+/* Play button micro-animation inside modal cards */
+.modal-media-card:hover .modal-media-play-icon {
+    transform: translate(-50%, -50%) scale(1.15) !important;
+    background-color: rgba(var(--accent-rgb), 1) !important;
+    box-shadow: 0 6px 20px rgba(var(--accent-rgb), 0.45) !important;
+}
+
+/* Infinite Scroll Loading Trigger and Spinner styling */
+.load-more-trigger {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.loading-spinner {
+    width: 36px;
+    height: 36px;
+    border: 3.5px solid rgba(var(--accent-rgb), 0.12);
+    border-radius: 50%;
+    border-top-color: var(--accent);
+    animation: spinnerRotate 0.8s linear infinite;
+    box-shadow: var(--glow-shadow);
+}
+
+@keyframes spinnerRotate {
+    to { transform: rotate(360deg); }
 }

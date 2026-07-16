@@ -7,6 +7,17 @@
     <meta name="description" content="Professional portfolio of Bashar Maklad, Signage Fabricator & Installer with 20+ years of experience. Specializing in LED, Neon, Acrylic, ACP Cladding, and CNC machining.">
     <meta name="keywords" content="Signage Fabricator, Signwriter, Sign Installer, LED Neon Signs, 3D Raised Letters, ACP Cladding, ANZSCO 399611">
     
+    <!-- Connection optimization (Preconnect CDN & Google Fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+
+    <!-- Google Fonts direct loading (Avoid CSS @import) -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Preload Hero LCP showcase image for performance -->
+    <link rel="preload" href="webp/black-motors-car-exhibition/images/IMG-20221224-WA0039.webp" as="image" type="image/webp">
+
     <!-- Unique IDs for interactive elements & SEO structure -->
     <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
     
@@ -383,9 +394,9 @@
     </button>
 
     <!-- Load the web-organized database file first -->
-    <script src="image_data_web.js"></script>
+    <script src="image_data_web.js" defer></script>
     
     <!-- Load the application controller logic -->
-    <script src="app.js"></script>
+    <script src="app.js" defer></script>
 </body>
 </html>
