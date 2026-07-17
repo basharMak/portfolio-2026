@@ -568,6 +568,18 @@ function unlockScroll() {
     document.body.style.removeProperty("overflow");
     document.documentElement.style.removeProperty("overflow");
     
+    const hash = window.location.hash;
+    const isSectionHash = hash === "#about" || hash === "#contact" || hash === "#portfolio" || hash === "#home";
+    
+    if (isSectionHash) {
+        isScrollLocked = false;
+        const targetElement = document.getElementById(hash.substring(1));
+        if (targetElement) {
+            targetElement.scrollIntoView({ behavior: "smooth" });
+        }
+        return;
+    }
+    
     let targetScroll = scrollPosition;
     
     // Find the offset of the currently active project card to scroll directly to it
