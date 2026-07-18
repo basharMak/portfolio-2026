@@ -177,10 +177,13 @@ function scrollToSection(targetId) {
     const header = document.getElementById("mainHeader");
     const headerHeight = header ? header.offsetHeight : 70;
     
-    // Calculate the absolute position on the document
-    const elementRect = targetElement.getBoundingClientRect();
-    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-    const absoluteTargetTop = currentScroll + elementRect.top;
+    // Calculate the absolute position on the document statically using offsetParent traversal
+    let absoluteTargetTop = 0;
+    let el = targetElement;
+    while (el) {
+        absoluteTargetTop += el.offsetTop;
+        el = el.offsetParent;
+    }
     
     // Leave a small extra aesthetic gap
     const targetScroll = absoluteTargetTop - headerHeight - 10;
