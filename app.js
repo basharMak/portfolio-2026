@@ -167,6 +167,7 @@ let loadMoreObserver = null;   // Intersection observer instance
 let lastViewedProjectSlug = null; // Stores last project active in modal
 let isModalClosing = false; // Flag to prevent scroll jumping on modal close
 let lastModalCloseTime = 0; // Timestamp of when the modal was last closed
+let navLinkClicked = false; // Track if navigation link was clicked explicitly
 
 // Smooth scroll to a section with header offset dynamically calculated
 function scrollToSection(targetId) {
@@ -233,6 +234,9 @@ document.addEventListener("DOMContentLoaded", () => {
             
             // Close mobile menu if open
             closeMobileMenu();
+            
+            // Set nav link click flag to true
+            navLinkClicked = true;
             
             // If modal is open, close it
             const modal = document.getElementById("projectModal");
@@ -613,10 +617,11 @@ function unlockScroll() {
     document.documentElement.style.removeProperty("overflow");
     
     const hash = window.location.hash;
-    const isSectionHash = hash === "#about" || hash === "#contact";
+    const isSectionHash = (hash === "#about" || hash === "#contact") && navLinkClicked;
     
     if (isSectionHash) {
         isScrollLocked = false;
+        navLinkClicked = false; // Reset flag
         scrollToSection(hash.substring(1));
         return;
     }
@@ -627,13 +632,16 @@ function unlockScroll() {
     if (lastViewedProjectSlug) {
         const card = document.querySelector(`[data-slug="${lastViewedProjectSlug}"]`);
         if (card) {
-            const cardRect = card.getBoundingClientRect();
-            // Since window.scrollY was preserved, absolute top is scrollY + cardRect.top
-            const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-            const absoluteCardTop = currentScroll + cardRect.top;
+            // Calculate absolute top offset relative to the document
+            let absoluteCardTop = 0;
+            let el = card;
+            while (el) {
+                absoluteCardTop += el.offsetTop;
+                el = el.offsetParent;
+            }
             
             // Center the card in the viewport
-            targetScroll = absoluteCardTop - (window.innerHeight / 2) + (cardRect.height / 2);
+            targetScroll = absoluteCardTop - (window.innerHeight / 2) + (card.offsetHeight / 2);
             
             // Clamp scroll value to document bounds
             const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
@@ -649,6 +657,7 @@ function unlockScroll() {
 function showProjectModal(project) {
     currentProject = project;
     lastViewedProjectSlug = project.folder_name; // Track active project slug
+    navLinkClicked = false; // Reset nav link click flag on modal open
     
     // Lock scroll immediately to capture the correct scroll position
     lockScroll();
