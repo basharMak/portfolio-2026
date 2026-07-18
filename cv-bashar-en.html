@@ -146,6 +146,12 @@
         .meta-list strong {
             color: #0f172a;
         }
+        @media print {
+            .page-break {
+                page-break-before: always;
+                padding-top: 18mm;
+            }
+        }
     </style>
 </head>
 <body>
@@ -206,7 +212,7 @@
                 </ul>
             </div>
 
-            <div class="job" style="page-break-before: always;">
+            <div class="job page-break">
                 <div class="job-header">
                     <span class="job-title">Design Supervisor</span>
                     <span>2008 – 2009</span>
