@@ -168,6 +168,28 @@ let lastViewedProjectSlug = null; // Stores last project active in modal
 let isModalClosing = false; // Flag to prevent scroll jumping on modal close
 let lastModalCloseTime = 0; // Timestamp of when the modal was last closed
 
+// Smooth scroll to a section with header offset dynamically calculated
+function scrollToSection(targetId) {
+    const targetElement = document.getElementById(targetId);
+    if (!targetElement) return;
+    
+    const header = document.getElementById("mainHeader");
+    const headerHeight = header ? header.offsetHeight : 70;
+    
+    // Calculate the absolute position on the document
+    const elementRect = targetElement.getBoundingClientRect();
+    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    const absoluteTargetTop = currentScroll + elementRect.top;
+    
+    // Leave a small extra aesthetic gap
+    const targetScroll = absoluteTargetTop - headerHeight - 10;
+    
+    window.scrollTo({
+        top: Math.max(0, targetScroll),
+        behavior: "smooth"
+    });
+}
+
 // Initialize Application
 document.addEventListener("DOMContentLoaded", () => {
     // Set Theme
@@ -198,10 +220,32 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
     
-    // Close mobile menu when clicking nav links
-    const navLinksList = document.querySelectorAll(".nav-links a");
-    navLinksList.forEach(link => {
-        link.addEventListener("click", closeMobileMenu);
+    // Bind click events on all internal anchor links for smooth and accurate scrolling
+    const anchorLinks = document.querySelectorAll('a[href^="#"]');
+    anchorLinks.forEach(link => {
+        link.addEventListener("click", (e) => {
+            const href = link.getAttribute("href");
+            // Skip dummy anchors or project details routes
+            if (href === "#" || href.startsWith("#/project/")) return;
+            
+            e.preventDefault();
+            const targetId = href.substring(1);
+            
+            // Close mobile menu if open
+            closeMobileMenu();
+            
+            // If modal is open, close it
+            const modal = document.getElementById("projectModal");
+            if (modal && modal.classList.contains("show")) {
+                hideProjectModal();
+            }
+            
+            // Update URL hash without causing a browser jump
+            history.pushState(null, null, href);
+            
+            // Scroll to the targeted section
+            scrollToSection(targetId);
+        });
     });
     
     // Close mobile menu when clicking outside of it
@@ -569,14 +613,11 @@ function unlockScroll() {
     document.documentElement.style.removeProperty("overflow");
     
     const hash = window.location.hash;
-    const isSectionHash = hash === "#about" || hash === "#contact" || hash === "#portfolio" || hash === "#home";
+    const isSectionHash = hash === "#about" || hash === "#contact";
     
     if (isSectionHash) {
         isScrollLocked = false;
-        const targetElement = document.getElementById(hash.substring(1));
-        if (targetElement) {
-            targetElement.scrollIntoView({ behavior: "smooth" });
-        }
+        scrollToSection(hash.substring(1));
         return;
     }
     
