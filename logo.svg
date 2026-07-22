@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+    <style>
+        .stroke-accent {
+            stroke: #ff5500;
+        }
+        .stroke-text {
+            stroke: #0f172a;
+        }
+        @media (prefers-color-scheme: dark) {
+            .stroke-text {
+                stroke: #f9fafb;
+            }
+            .stroke-accent {
+                stroke: #ff5500;
+            }
+        }
+    </style>
+    <defs>
+        <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ff5500" />
+            <stop offset="100%" stop-color="#ff8800" />
+        </linearGradient>
+    </defs>
+    <!-- B Path (Accent Gradient) -->
+    <path class="stroke-accent" d="M 28,22 H 48 C 58,22 64,28 64,36 C 64,43 58,48 48,48 H 28 V 78 H 50 C 60,78 68,70 68,60 C 68,52 60,48 50,48" 
+          stroke="url(#logo-grad)" 
+          stroke-width="9" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" />
+    <!-- M Path (Main Text Color / Adaptive) -->
+    <path class="stroke-text" d="M 52,78 V 40 L 66,54 L 80,40 V 78" 
+          stroke-width="9" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" />
+</svg>

@@ -19,7 +19,7 @@
     <link rel="preload" href="webp/black-motors-car-exhibition/images/IMG-20221224-WA0039.webp" as="image" type="image/webp">
 
     <!-- Unique IDs for interactive elements & SEO structure -->
-    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="logo.svg">
     
     <!-- FontAwesome CDN for premium vector icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -192,6 +192,26 @@
             <div class="about-image">
                 <img src="profile.png" id="aboutProfileImg" alt="Bashar Maklad">
                 <div class="about-image-overlay">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" class="about-overlay-logo">
+                        <defs>
+                            <linearGradient id="overlay-logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="var(--accent)" />
+                                <stop offset="100%" stop-color="var(--accent-secondary)" />
+                            </linearGradient>
+                        </defs>
+                        <!-- B Path (Accent Gradient) -->
+                        <path d="M 28,22 H 48 C 58,22 64,28 64,36 C 64,43 58,48 48,48 H 28 V 78 H 50 C 60,78 68,70 68,60 C 68,52 60,48 50,48" 
+                              stroke="url(#overlay-logo-grad)" 
+                              stroke-width="9" 
+                              stroke-linecap="round" 
+                              stroke-linejoin="round" />
+                        <!-- M Path (White for high contrast on dark overlay card) -->
+                        <path d="M 52,78 V 40 L 66,54 L 80,40 V 78" 
+                              stroke="#ffffff" 
+                              stroke-width="9" 
+                              stroke-linecap="round" 
+                              stroke-linejoin="round" />
+                    </svg>
                     <h3 id="aboutOverlayTitle">Bashar Maklad</h3>
                     <p id="aboutOverlaySubtitle">Senior Fabricator & Signwriter</p>
                 </div>
