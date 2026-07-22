@@ -351,6 +351,9 @@ function toggleLanguage() {
 function applyLanguage(lang) {
     const dict = TRANSLATIONS_DICT[lang];
     
+    // Update HTML tag lang attribute dynamically for SEO compatibility
+    document.documentElement.lang = lang;
+    
     // 1. Toggle body dir attribute & class
     if (lang === "ar") {
         document.body.dir = "rtl";
