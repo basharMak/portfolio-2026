@@ -12,8 +12,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 
-    <!-- Google Fonts direct loading (Avoid CSS @import) -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <!-- Google Fonts asynchronous loading (Non-blocking) -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Tajawal:wght@300;400;500;700;800;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    </noscript>
     
     <!-- Preload Hero LCP showcase image for performance -->
     <link rel="preload" href="webp/black-motors-car-exhibition/images/IMG-20221224-WA0039.webp" as="image" type="image/webp">
@@ -21,9 +24,13 @@
     <!-- Unique IDs for interactive elements & SEO structure -->
     <link rel="icon" type="image/svg+xml" href="logo.svg">
     
-    <!-- FontAwesome CDN for premium vector icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Custom stylesheet -->
+    <!-- FontAwesome CDN asynchronous loading (Non-blocking) -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </noscript>
+
+    <!-- Custom stylesheet (Kept synchronous as it is critical for layout) -->
     <link rel="stylesheet" href="style.css">
 
     <!-- Vercel Web Analytics -->
@@ -190,7 +197,7 @@
     <section class="about" id="about">
         <div class="about-grid">
             <div class="about-image">
-                <img src="profile.png" id="aboutProfileImg" alt="Bashar Maklad">
+                <img src="profile.png" id="aboutProfileImg" alt="Bashar Maklad" loading="lazy" width="400" height="400">
                 <div class="about-image-overlay">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" class="about-overlay-logo">
                         <defs>
