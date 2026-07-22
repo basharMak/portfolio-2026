@@ -171,6 +171,22 @@ let navLinkClicked = false; // Track if navigation link was clicked explicitly
 
 // Smooth scroll to a section with header offset dynamically calculated
 function scrollToSection(targetId) {
+    // Load all projects first if scrolling to sections below the projects grid
+    // to prevent layout shifting and scroll interruption during smooth scroll
+    if (targetId === "about" || targetId === "contact") {
+        if (typeof rawProjectsData !== 'undefined') {
+            const filteredProjectsCount = rawProjectsData.filter(proj => {
+                if (activeCategory === "all") return true;
+                return getProjectCategory(proj) === activeCategory;
+            }).length;
+            
+            if (visibleProjectsCount < filteredProjectsCount) {
+                visibleProjectsCount = filteredProjectsCount;
+                renderProjects();
+            }
+        }
+    }
+
     const targetElement = document.getElementById(targetId);
     if (!targetElement) return;
     
@@ -297,6 +313,14 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // Bind swipe events for the fullscreen media lightbox
     bindLightboxSwipeEvents();
+    
+    // Scroll to section on initial page load if hash exists
+    const initialHash = window.location.hash;
+    if (initialHash === "#about" || initialHash === "#contact" || initialHash === "#portfolio") {
+        setTimeout(() => {
+            scrollToSection(initialHash.substring(1));
+        }, 300); // Wait for DOM rendering and translation to complete
+    }
 });
 
 // Toggle Theme (Dark / Light)
