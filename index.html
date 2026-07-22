@@ -44,7 +44,28 @@
     <header id="mainHeader">
         <div class="nav-container">
             <a href="#" class="logo" id="logoLink">
-                <div class="logo-icon">BM</div>
+                <div class="logo-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" class="logo-svg">
+                        <defs>
+                            <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="var(--accent)" />
+                                <stop offset="100%" stop-color="var(--accent-secondary)" />
+                            </linearGradient>
+                        </defs>
+                        <!-- B Path (Accent Gradient) -->
+                        <path d="M 28,22 H 48 C 58,22 64,28 64,36 C 64,43 58,48 48,48 H 28 V 78 H 50 C 60,78 68,70 68,60 C 68,52 60,48 50,48" 
+                              stroke="url(#logo-grad)" 
+                              stroke-width="9" 
+                              stroke-linecap="round" 
+                              stroke-linejoin="round" />
+                        <!-- M Path (Main Text Color / Adaptive) -->
+                        <path d="M 52,78 V 40 L 66,54 L 80,40 V 78" 
+                              stroke="var(--text-main)" 
+                              stroke-width="9" 
+                              stroke-linecap="round" 
+                              stroke-linejoin="round" />
+                    </svg>
+                </div>
                 <div class="logo-text">
                     <h1 id="brandName">Bashar Maklad</h1>
                     <p id="brandSubtitle">Signage Specialist</p>
